@@ -28,6 +28,7 @@
     "@payloadcms/next": "^3.50.0-internal.ca62628",
     "@payloadcms/payload-cloud": "^3.50.0-internal.ca62628",
     "@payloadcms/richtext-lexical": "^3.50.0-internal.ca62628",
+    "@payloadcms/storage-r2": "^3.50.0-internal.ca62628",
     "@payloadcms/ui": "^3.50.0-internal.ca62628",
     "cross-env": "^7.0.3",
     "dotenv": "16.4.7",
