@@ -31,6 +31,10 @@
     // },
   ],
   "r2_buckets": [
+    {
+      "binding": "R2",
+      "bucket_name": "my-app"
+    }
     // Create a R2 binding with the binding name "NEXT_INC_CACHE_R2_BUCKET"
     // {
     //   "binding": "NEXT_INC_CACHE_R2_BUCKET",
@@ -59,6 +63,10 @@
   //       // },
   //     ],
   //     "r2_buckets": [
+  //       {
+  //         "binding": "R2",
+  //         "bucket_name": "my-app-staging"
+  //       }
   //       // Create a R2 binding with the binding name "NEXT_INC_CACHE_R2_BUCKET"
   //       // {
   //       //   "binding": "NEXT_INC_CACHE_R2_BUCKET",
