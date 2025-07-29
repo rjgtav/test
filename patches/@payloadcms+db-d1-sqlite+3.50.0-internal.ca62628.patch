@@ -1,0 +1,37 @@
+diff --git a/node_modules/@payloadcms/db-d1-sqlite/.DS_Store b/node_modules/@payloadcms/db-d1-sqlite/.DS_Store
+new file mode 100644
+index 0000000..f259e5b
+Binary files /dev/null and b/node_modules/@payloadcms/db-d1-sqlite/.DS_Store differ
+diff --git a/node_modules/@payloadcms/db-d1-sqlite/dist/connect.js b/node_modules/@payloadcms/db-d1-sqlite/dist/connect.js
+index 109f937..7f0985d 100644
+--- a/node_modules/@payloadcms/db-d1-sqlite/dist/connect.js
++++ b/node_modules/@payloadcms/db-d1-sqlite/dist/connect.js
+@@ -1,4 +1,4 @@
+-import { D1Database } from '@miniflare/d1';
++//import { D1Database } from '@miniflare/d1';
+ import { pushDevSchema } from '@payloadcms/drizzle';
+ import { drizzle } from 'drizzle-orm/d1';
+ export const connect = async function connect(options = {
+@@ -11,9 +11,7 @@ export const connect = async function connect(options = {
+     };
+     try {
+         const logger = this.logger || false;
+-        this.drizzle = drizzle(new D1Database(this.binding), {
+-            logger
+-        });
++        this.drizzle = this.drizzle = drizzle(this.binding, { logger, schema: this.schema });
+         this.client = this.drizzle.$client;
+         if (!hotReload) {
+             if (process.env.PAYLOAD_DROP_DATABASE === 'true') {
+diff --git a/node_modules/@payloadcms/db-d1-sqlite/dist/index.js b/node_modules/@payloadcms/db-d1-sqlite/dist/index.js
+index 48ad4cf..7760b98 100644
+--- a/node_modules/@payloadcms/db-d1-sqlite/dist/index.js
++++ b/node_modules/@payloadcms/db-d1-sqlite/dist/index.js
+@@ -90,7 +90,6 @@ export function sqliteD1Adapter(args) {
+                 sanitizeStatements ({ sqlExecute, statements }) {
+                     return statements.map((statement)=>`${sqlExecute}${statement?.replaceAll('`', '\\`')}\`)`).join('\n');
+                 },
+-                sqlOnly: true
+             }),
+             createVersion,
+             defaultIDType: payloadIDType,
