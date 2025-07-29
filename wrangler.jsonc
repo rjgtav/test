@@ -1,0 +1,54 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "main": ".open-next/worker.js",
+  "name": "my-app",
+  "compatibility_date": "2025-08-15",
+  "compatibility_flags": [
+    // Enable Node.js API
+    // see https://developers.cloudflare.com/workers/configuration/compatibility-flags/#nodejs-compatibility-flag
+    "nodejs_compat",
+    // Allow to fetch URLs in your app
+    // see https://developers.cloudflare.com/workers/configuration/compatibility-flags/#global-fetch-strictly-public
+    "global_fetch_strictly_public"
+  ],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    // The service should match the "name" of your worker
+    // {
+    //   "binding": "WORKER_SELF_REFERENCE",
+    //   "service": "my-app"
+    // },
+  ],
+  "r2_buckets": [
+    // Create a R2 binding with the binding name "NEXT_INC_CACHE_R2_BUCKET"
+    // {
+    //   "binding": "NEXT_INC_CACHE_R2_BUCKET",
+    //   "bucket_name": "<BUCKET_NAME>",
+    // },
+  ]
+
+  // Here's how to configure an additional environment
+  // It can be deployed with `CLOUDFLARE_ENV=staging pnpm run deploy`
+  // "env": {
+  //   "staging": {
+  //     "name": "my-app-staging",
+  //     "services": [
+  //       // The service should match the "name" of your worker
+  //       // {
+  //       //   "binding": "WORKER_SELF_REFERENCE",
+  //       //   "service": "my-app-staging"
+  //       // },
+  //     ],
+  //     "r2_buckets": [
+  //       // Create a R2 binding with the binding name "NEXT_INC_CACHE_R2_BUCKET"
+  //       // {
+  //       //   "binding": "NEXT_INC_CACHE_R2_BUCKET",
+  //       //   "bucket_name": "<BUCKET_NAME>",
+  //       // },
+  //     ]
+  //   }
+  // }
+}

@@ -5,13 +5,19 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
-import sharp from 'sharp'
+import { CloudflareContext, getCloudflareContext } from '@opennextjs/cloudflare'
+import { GetPlatformProxyOptions } from 'wrangler'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+const cloudflareRemoteBindings = process.env.NODE_ENV === 'production'
+const cloudflare = process.argv.find(value => value.match(/^(generate|migrate):?/)) || !cloudflareRemoteBindings
+  ? await getCloudflareContextFromWrangler()
+  : await getCloudflareContext({ async: true })
 
 export default buildConfig({
   admin: {
@@ -31,9 +37,16 @@ export default buildConfig({
       url: process.env.DATABASE_URI || '',
     },
   }),
-  sharp,
   plugins: [
     payloadCloudPlugin(),
     // storage-adapter-placeholder
   ],
 })
+
+// Adapted from https://github.com/opennextjs/opennextjs-cloudflare/blob/d00b3a13e42e65aad76fba41774815726422cc39/packages/cloudflare/src/api/cloudflare-context.ts#L328C36-L328C46
+function getCloudflareContextFromWrangler(): Promise<CloudflareContext> {
+  return import(/* webpackIgnore: true */`${"__wrangler".replaceAll("_", "")}`).then(({ getPlatformProxy }) => getPlatformProxy({
+    environment: process.env.CLOUDFLARE_ENV,
+    experimental: { remoteBindings: cloudflareRemoteBindings }
+  } satisfies GetPlatformProxyOptions));
+}
