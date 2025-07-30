@@ -1,3 +1,5 @@
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/rjgtav/test)
+
 # Payload Blank Template
 
 This template comes configured with the bare minimum to get started on anything you need.
