@@ -23,6 +23,13 @@
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --no-experimental-strip-types\" pnpm exec playwright test",
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
   },
+  "cloudflare": {
+    "bindings": {
+      "PAYLOAD_SECRET": {
+        "description": "Generate a random string using `openssl rand -hex 32`"
+      }
+    }
+  },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.9.1",
     "@payloadcms/db-d1-sqlite": "^3.58.0",
